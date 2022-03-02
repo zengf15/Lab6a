@@ -1,7 +1,7 @@
-Lab 06 - Sad plots
+Lab 06a - Sad plots
 ================
-Insert your name here
-Insert date here
+Fanyi Zeng
+03/01/22
 
 ### Load packages and data
 
@@ -10,20 +10,34 @@ library(tidyverse)
 library(dsbox) 
 ```
 
-### Exercise 1
+Let’s start by loading the data used to create this plot.
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+``` r
+staff <- read_csv("data/instructional-staff.csv")
+```
 
-### Exercise 2
+In order to recreate this visualization we need to first reshape the
+data to have one variable for faculty type and one variable for year. In
+other words, we will convert the data from wide format to long format.
 
-Remove this text, and add your answer for Exercise 1 here. Add code
-chunks as needed. Don’t forget to label your code chunk. Do not use
-spaces in code chunk labels.
+``` r
+staff_long <- staff %>%
+  pivot_longer(cols = -faculty_type, names_to = "year") %>%
+  mutate(value = as.numeric(value))
+```
 
-### Exercise 3
+And now let’s plot it as a line plot. A possible approach for creating a
+line plot where we color the lines by faculty type is the following:
 
-…
+``` r
+staff_long %>%
+  ggplot(aes(x = year, y = value, group = faculty_type, color = faculty_type)) +
+  geom_line() +
+  labs(title = "Proportions of each type of instructional staff", subtitle = "By year", x = "Year", y = "Proportions", color = "Faculty type")
+```
 
-Add exercise headings as needed.
+![](lab-06_files/figure-gfm/plot-1.png)<!-- -->
+
+I think the plot above already shows that the proportion of part-time
+faculty have gone up over time compared to other instructional staff
+types, so there is no other changes we need to make.
