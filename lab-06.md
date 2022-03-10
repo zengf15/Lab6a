@@ -40,4 +40,12 @@ staff_long %>%
 
 I think the plot above already shows that the proportion of part-time
 faculty have gone up over time compared to other instructional staff
-types, so there is no other changes we need to make.
+types, but we can use a stack chart to make that clearer.
+
+``` r
+staff_long %>%
+  ggplot(aes(y=year,x = value, fill=faculty_type)) +
+  geom_col()
+```
+
+![](lab-06_files/figure-gfm/stack-1.png)<!-- -->

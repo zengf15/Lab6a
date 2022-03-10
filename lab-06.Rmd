@@ -35,4 +35,10 @@ staff_long %>%
   labs(title = "Proportions of each type of instructional staff", subtitle = "By year", x = "Year", y = "Proportions", color = "Faculty type")
 ```
 
-I think the plot above already shows that the proportion of part-time faculty have gone up over time compared to other instructional staff types, so there is no other changes we need to make.
+I think the plot above already shows that the proportion of part-time faculty have gone up over time compared to other instructional staff types, but we can use a stack chart to make that clearer.
+
+```{r stack}
+staff_long %>%
+  ggplot(aes(y=year,x = value, fill=faculty_type)) +
+  geom_col()
+```
